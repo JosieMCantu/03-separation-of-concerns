@@ -76,8 +76,7 @@ describe('03_separation-of-concerns-demo routes', () => {
     
     return request(app)
     .delete(`/api/v1/orders/${order.id}`)
-    .then(()=> {
-      expect(twilio.sendSms).toHaveBeenCalledTimes(1);
+    .then(()=> {expect(twilio.sendSms).toHaveBeenCalledTimes(1);
 });
 });
 });
