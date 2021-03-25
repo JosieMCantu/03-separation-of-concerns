@@ -70,16 +70,30 @@ describe('03_separation-of-concerns-demo routes', () => {
 
   });
 
-  it('PUT adds a new item', async () => {
-    const order = await Order.insert({quantity : 20})
-    
-    const expectation = {
-      
-    }
-    const res = await request(app)
-    .get(`/api/v1/orders/${order.id}`);
-      
-    expect(res.body).toEqual(expectation);
+  it('PUT updates an order', async () => {
+    const order = await Order.insert({quantity : 16})
 
+    return request(app)
+    .put(`/api/v1/orders/${order.id}`)
+    .send({quantity: 13})
+    .then((res)=> {
+      expect(res.body).toEqual({
+       id: order.id,
+       quantity:13
+      });
+  
   });
+  })
+  it('DELETEs an order', async () => {
+    const order = await Order.insert({quantity : 16})
+
+    return request(app)
+    .delete(`/api/v1/orders/${order.id}`)
+    .then((res)=> {
+      expect(res.body).toEqual({
+        id: '1',
+        quantity: 16
+      });
+});
+});
 });
